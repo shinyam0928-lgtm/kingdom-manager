@@ -1,77 +1,44 @@
-const warriors = [
-  {
-    id: 1,
-    character: "信",
-    card: "全てを出し尽くす",
-    owned: false,
-    level: 1
-  },
-  {
-    id: 2,
-    character: "王騎",
-    card: "秦の怪鳥",
-    owned: false,
-    level: 1
-  },
-  {
-    id: 3,
-    character: "李牧",
-    card: "超国軍総大将",
-    owned: false,
-    level: 1
-  },
-  {
-    id: 4,
-    character: "王翦",
-    card: "六大将軍",
-    owned: false,
-    level: 1
-  },
-  {
-    id: 5,
-    character: "羌瘣",
-    card: "象姉への誓い",
-    owned: false,
-    level: 1
-  }
-];
+async function loadWarriors() {
+    try {
+        const response = await fetch("src/data/warriors.json");
 
-const warriorList = document.getElementById("warriorList");
+        if (!response.ok) {
+            throw new Error("warriors.json を読み込めません");
+        }
 
-function render() {
-  warriorList.innerHTML = "";
+        const warriors = await response.json();
 
-  warriors.forEach(warrior => {
+        renderWarriors(warriors);
 
-    const card = document.createElement("div");
+    } catch (error) {
+        document.getElementById("warriorList").innerHTML =
+            `<p style="color:red;">${error.message}</p>`;
+    }
+}
 
-    card.style.background = "#2b2b2b";
-    card.style.padding = "15px";
-    card.style.marginBottom = "10px";
-    card.style.borderRadius = "10px";
+function renderWarriors(warriors) {
 
-    card.innerHTML = `
-      <label>
-        <input type="checkbox" ${warrior.owned ? "checked" : ""}>
-        <strong>${warrior.character}</strong>
-        【${warrior.card}】
-      </label>
+    const list = document.getElementById("warriorList");
 
-      <br><br>
+    list.innerHTML = "";
 
-      Lv
-      <input
-        type="number"
-        value="${warrior.level}"
-        min="1"
-        style="width:70px;"
-      >
-    `;
+    warriors.forEach(warrior => {
 
-    warriorList.appendChild(card);
+        const card = document.createElement("div");
 
-  });
+        card.className = "warrior-card";
+
+        card.innerHTML = `
+            <h3>${warrior.character}</h3>
+            <p>【${warrior.cardName}】</p>
+            <p>Lv.${warrior.level}</p>
+            <p>${warrior.rarity}</p>
+        `;
+
+        list.appendChild(card);
+
+    });
 
 }
 
-render();
+loadWarriors();
