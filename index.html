@@ -1,52 +1,150 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kingdom Manager</title>
 
-  <link rel="stylesheet" href="style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kingdom Manager</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header>
+
     <h1>⚔ Kingdom Manager</h1>
+
     <p>キングダム頂天 手持ち管理ツール</p>
+
 </header>
 
 <nav>
-    <button>👤 武将</button>
-    <button>🧠 軍師</button>
-    <button>🛡 サポート</button>
-    <button>🃏 シーンカード</button>
-    <button>📊 分析</button>
+
+    <button id="tab-warrior" class="active">
+        👤 武将
+    </button>
+
+    <button id="tab-strategist">
+        🧠 軍師
+    </button>
+
+    <button id="tab-support">
+        🛡 サポート
+    </button>
+
+    <button id="tab-scene">
+        🃏 シーンカード
+    </button>
+
+    <button id="tab-training">
+        🎯 修行
+    </button>
+
+    <button id="tab-analysis">
+        📊 分析
+    </button>
+
 </nav>
 
 <main>
 
+<section class="summary">
+
+<div class="summary-card">
+
+<h3>所持武将</h3>
+
+<p id="ownedCount">
+0
+</p>
+
+</div>
+
+<div class="summary-card">
+
+<h3>総武将数</h3>
+
+<p id="totalCount">
+0
+</p>
+
+</div>
+
+<div class="summary-card">
+
+<h3>育成済</h3>
+
+<p id="trainedCount">
+0
+</p>
+
+</div>
+
+</section>
+
 <section class="search">
 
 <input
+id="searchInput"
 type="text"
-placeholder="武将名で検索..."
+placeholder="武将名・カード名で検索..."
 >
+
+</section>
+
+<section id="filterArea">
+
+<select id="rarityFilter">
+
+<option value="all">全レアリティ</option>
+
+<option value="★3">★3</option>
+
+<option value="★2">★2</option>
+
+<option value="★1">★1</option>
+
+</select>
+
+<select id="ownedFilter">
+
+<option value="all">全て</option>
+
+<option value="owned">所持のみ</option>
+
+<option value="notOwned">未所持のみ</option>
+
+</select>
 
 </section>
 
 <section class="card-list">
 
-<h2>武将一覧</h2>
+<h2 id="pageTitle">
+
+武将一覧
+
+</h2>
 
 <div id="warriorList">
+
 読み込み中...
+
 </div>
 
 </section>
 
 </main>
 
+<footer>
+
+Kingdom Manager Version 0.5
+
+</footer>
+
 <script src="script.js"></script>
 
 </body>
+
 </html>
