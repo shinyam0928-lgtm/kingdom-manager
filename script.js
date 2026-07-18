@@ -25,22 +25,37 @@ function renderWarriors(warriors) {
     warriors.forEach(warrior => {
 
         const card = document.createElement("div");
-
         card.className = "warrior-card";
 
         card.innerHTML = `
             <h3>${warrior.character}</h3>
+
             <p>【${warrior.cardName}】</p>
-<p>
-    Lv
-    <input
-        type="number"
-        min="1"
-        max="100"
-        value="${warrior.level}"
-        class="level-input"
-    >
-</p>
+
+            <label>
+                所持
+                <input
+                    type="checkbox"
+                    ${warrior.owned ? "checked" : ""}
+                    data-id="${warrior.id}"
+                    class="owned-input"
+                >
+            </label>
+
+            <br><br>
+
+            <label>
+                Lv
+                <input
+                    type="number"
+                    min="1"
+                    max="100"
+                    value="${warrior.level}"
+                    data-id="${warrior.id}"
+                    class="level-input"
+                >
+            </label>
+
             <p>${warrior.rarity}</p>
         `;
 
