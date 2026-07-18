@@ -1,70 +1,440 @@
+/* =========================
+   Kingdom Manager v0.5
+========================= */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
 body{
-    background:#111;
-    color:white;
+
+    font-family:-apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+    background:#121212;
+
+    color:#ffffff;
+
 }
 
+/* =========================
+        HEADER
+========================= */
+
 header{
-    background:#1c1c1c;
-    padding:20px;
+
+    background:#1d1d1d;
+
+    padding:24px;
+
     text-align:center;
+
     border-bottom:3px solid gold;
+
 }
 
 header h1{
+
     color:gold;
+
+    font-size:30px;
+
     margin-bottom:8px;
+
 }
 
+header p{
+
+    color:#cccccc;
+
+    font-size:15px;
+
+}
+
+/* =========================
+          NAV
+========================= */
+
 nav{
+
     display:flex;
-    overflow-x:auto;
+
     gap:10px;
+
+    overflow-x:auto;
+
     padding:15px;
-    background:#222;
+
+    background:#1a1a1a;
+
+    border-bottom:1px solid #333;
+
 }
 
 nav button{
-    background:#333;
-    color:white;
+
+    flex-shrink:0;
+
+    padding:12px 18px;
+
     border:none;
-    padding:10px 16px;
+
     border-radius:10px;
+
+    background:#333;
+
+    color:white;
+
     cursor:pointer;
-    white-space:nowrap;
+
+    transition:0.3s;
+
 }
 
 nav button:hover{
+
     background:gold;
+
     color:#111;
+
 }
 
+nav button.active{
+
+    background:gold;
+
+    color:#111;
+
+    font-weight:bold;
+
+}
+
+/* =========================
+         MAIN
+========================= */
+
 main{
+
+    max-width:1100px;
+
+    margin:auto;
+
     padding:20px;
+
+}
+
+/* =========================
+      SUMMARY
+========================= */
+
+.summary{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+
+    gap:15px;
+
+    margin-bottom:20px;
+
+}
+
+.summary-card{
+
+    background:#222;
+
+    border-radius:12px;
+
+    padding:18px;
+
+    text-align:center;
+
+    border:1px solid #333;
+
+}
+
+.summary-card h3{
+
+    font-size:15px;
+
+    color:#bbbbbb;
+
+    margin-bottom:8px;
+
+}
+
+.summary-card p{
+
+    font-size:28px;
+
+    color:gold;
+
+    font-weight:bold;
+
+}
+
+/* =========================
+         SEARCH
+========================= */
+
+.search{
+
+    margin-bottom:18px;
+
 }
 
 .search input{
+
     width:100%;
-    padding:12px;
-    border-radius:10px;
+
+    padding:14px;
+
     border:none;
-    margin-bottom:20px;
+
+    border-radius:10px;
+
     font-size:16px;
+
+    background:#222;
+
+    color:white;
+
 }
 
+.search input:focus{
+
+    outline:2px solid gold;
+
+}
+
+/* =========================
+        FILTER
+========================= */
+
+#filterArea{
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:20px;
+
+}
+
+#filterArea select{
+
+    flex:1;
+
+    min-width:150px;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    border:none;
+
+    background:#222;
+
+    color:white;
+
+}
+
+/* =========================
+      CARD AREA
+========================= */
+
 .card-list{
-    background:#1e1e1e;
-    border-radius:12px;
+
+    background:#1c1c1c;
+
+    border-radius:15px;
+
     padding:20px;
+
+    border:1px solid #333;
+
 }
 
 .card-list h2{
-    margin-bottom:15px;
+
     color:gold;
+
+    margin-bottom:20px;
+
+}
+
+/* =========================
+     WARRIOR CARD
+========================= */
+
+.warrior-card{
+
+    background:#2a2a2a;
+
+    border-radius:12px;
+
+    padding:18px;
+
+    margin-bottom:18px;
+
+    border-left:5px solid gold;
+
+    transition:.2s;
+
+}
+
+.warrior-card:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 5px 15px rgba(0,0,0,.35);
+
+}
+
+.warrior-card h3{
+
+    font-size:22px;
+
+    color:gold;
+
+    margin-bottom:8px;
+
+}
+
+.warrior-card p{
+
+    margin-bottom:10px;
+
+    color:#dddddd;
+
+    line-height:1.5;
+
+}
+
+.warrior-card label{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:12px;
+
+    gap:12px;
+
+}
+
+.warrior-card input[type="number"]{
+
+    width:90px;
+
+    padding:8px;
+
+    text-align:center;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#3b3b3b;
+
+    color:white;
+
+}
+
+.warrior-card input[type="checkbox"]{
+
+    transform:scale(1.4);
+
+}
+
+/* =========================
+         FOOTER
+========================= */
+
+footer{
+
+    text-align:center;
+
+    color:#888;
+
+    padding:30px;
+
+    font-size:14px;
+
+}
+
+/* =========================
+      RESPONSIVE
+========================= */
+
+@media (max-width:768px){
+
+    header h1{
+
+        font-size:26px;
+
+    }
+
+    nav{
+
+        padding:10px;
+
+    }
+
+    nav button{
+
+        padding:10px 14px;
+
+        font-size:14px;
+
+    }
+
+    .summary{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .warrior-card{
+
+        padding:15px;
+
+    }
+
+    .warrior-card h3{
+
+        font-size:20px;
+
+    }
+
+    .warrior-card label{
+
+        flex-direction:row;
+
+    }
+
+}
+
+@media (min-width:1000px){
+
+    .warrior-card{
+
+        display:grid;
+
+        grid-template-columns:2fr 1fr;
+
+        gap:20px;
+
+        align-items:center;
+
+    }
+
 }
