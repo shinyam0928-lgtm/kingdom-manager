@@ -1,1 +1,42 @@
-
+[
+  {
+    "id": 1,
+    "character": "信",
+    "cardName": "全てを出し尽くす",
+    "rarity": "★3",
+    "owned": true,
+    "level": 55
+  },
+  {
+    "id": 2,
+    "character": "信",
+    "cardName": "秦国百人将",
+    "rarity": "★3",
+    "owned": true,
+    "level": 50
+  },
+  {
+    "id": 3,
+    "character": "王騎",
+    "cardName": "秦の怪鳥",
+    "rarity": "★3",
+    "owned": true,
+    "level": 55
+  },
+  {
+    "id": 4,
+    "character": "李牧",
+    "cardName": "超国軍総大将",
+    "rarity": "★3",
+    "owned": true,
+    "level": 55
+  },
+  {
+    "id": 5,
+    "character": "羌瘣",
+    "cardName": "象姉への誓い",
+    "rarity": "★3",
+    "owned": true,
+    "level": 50
+  }
+]
