@@ -31,7 +31,16 @@ function renderWarriors(warriors) {
         card.innerHTML = `
             <h3>${warrior.character}</h3>
             <p>【${warrior.cardName}】</p>
-            <p>Lv.${warrior.level}</p>
+<p>
+    Lv
+    <input
+        type="number"
+        min="1"
+        max="100"
+        value="${warrior.level}"
+        class="level-input"
+    >
+</p>
             <p>${warrior.rarity}</p>
         `;
 
