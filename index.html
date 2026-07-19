@@ -1,150 +1,286 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kingdom Manager</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+<title>キングダム頂天攻略ツール</title>
+
+<style>
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    margin:0;
+    background:#f5f5f5;
+    color:#333;
+}
+
+header{
+    background:#8b0000;
+    color:white;
+    padding:15px;
+    text-align:center;
+}
+
+h1{
+    margin:0;
+    font-size:22px;
+}
+
+.container{
+    padding:15px;
+}
+
+.card{
+    background:white;
+    border-radius:10px;
+    padding:15px;
+    margin-bottom:12px;
+    box-shadow:0 2px 5px rgba(0,0,0,.1);
+}
+
+input{
+    width:100%;
+    padding:10px;
+    font-size:16px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.checkbox{
+    transform:scale(1.3);
+    margin-right:10px;
+}
+
+.tag{
+    display:inline-block;
+    background:#ddd;
+    padding:3px 8px;
+    border-radius:15px;
+    font-size:12px;
+    margin-left:5px;
+}
+
+.count{
+    font-weight:bold;
+    color:#8b0000;
+}
+
+button{
+    background:#8b0000;
+    color:white;
+    border:none;
+    padding:10px;
+    border-radius:8px;
+}
+
+</style>
 </head>
+
 
 <body>
 
 <header>
-
-    <h1>⚔ Kingdom Manager</h1>
-
-    <p>キングダム頂天 手持ち管理ツール</p>
-
+<h1>キングダム頂天 攻略ツール</h1>
 </header>
 
-<nav>
 
-    <button id="tab-warrior" class="active">
-        👤 武将
-    </button>
+<div class="container">
 
-    <button id="tab-strategist">
-        🧠 軍師
-    </button>
 
-    <button id="tab-support">
-        🛡 サポート
-    </button>
+<div class="card">
 
-    <button id="tab-scene">
-        🃏 シーンカード
-    </button>
+<h2>SSRシーンカード管理</h2>
 
-    <button id="tab-training">
-        🎯 修行
-    </button>
-
-    <button id="tab-analysis">
-        📊 分析
-    </button>
-
-</nav>
-
-<main>
-
-<section class="summary">
-
-<div class="summary-card">
-
-<h3>所持武将</h3>
-
-<p id="ownedCount">
-0
+<p>
+所持カード：
+<span class="count" id="count">0</span>枚
 </p>
 
+<input 
+id="search"
+placeholder="カード名を検索"
+oninput="searchCard()">
+
 </div>
 
-<div class="summary-card">
 
-<h3>総武将数</h3>
 
-<p id="totalCount">
-0
+<div id="cardList"></div>
+
+
+
+</div>
+
+
+
+<script>
+
+
+// SSRカードデータ
+// 今後Game8正式名称を追加
+
+const cards=[
+
+{
+name:"王騎の号令",
+type:"SSR",
+use:"王騎・信系 火力強化"
+},
+
+{
+name:"飛信隊出陣",
+type:"SSR",
+use:"信編成向け"
+},
+
+{
+name:"六大将軍の威光",
+type:"SSR",
+use:"汎用火力"
+},
+
+{
+name:"趙軍総大将の策",
+type:"SSR",
+use:"李牧向け"
+},
+
+{
+name:"秦軍の結束",
+type:"SSR",
+use:"秦編成"
+}
+
+];
+
+
+
+let owned=
+JSON.parse(localStorage.getItem("kingdomCards")||"[]");
+
+
+
+function save(){
+
+localStorage.setItem(
+"kingdomCards",
+JSON.stringify(owned)
+);
+
+updateCount();
+
+}
+
+
+
+function updateCount(){
+
+document.getElementById("count").innerText=
+owned.length;
+
+}
+
+
+
+function display(list){
+
+
+let area=document.getElementById("cardList");
+
+area.innerHTML="";
+
+
+list.forEach((c,index)=>{
+
+
+let checked=
+owned.includes(c.name)
+?"checked":"";
+
+
+area.innerHTML+=`
+
+<div class="card">
+
+<label>
+
+<input 
+class="checkbox"
+type="checkbox"
+${checked}
+onclick="toggle('${c.name}')">
+
+<b>${c.name}</b>
+
+<span class="tag">${c.type}</span>
+
+</label>
+
+
+<p>
+用途：${c.use}
 </p>
 
-</div>
-
-<div class="summary-card">
-
-<h3>育成済</h3>
-
-<p id="trainedCount">
-0
-</p>
 
 </div>
 
-</section>
+`;
 
-<section class="search">
+});
 
-<input
-id="searchInput"
-type="text"
-placeholder="武将名・カード名で検索..."
->
 
-</section>
+}
 
-<section id="filterArea">
 
-<select id="rarityFilter">
 
-<option value="all">全レアリティ</option>
+function toggle(name){
 
-<option value="★3">★3</option>
+if(owned.includes(name)){
 
-<option value="★2">★2</option>
+owned=
+owned.filter(x=>x!==name);
 
-<option value="★1">★1</option>
+}else{
 
-</select>
+owned.push(name);
 
-<select id="ownedFilter">
+}
 
-<option value="all">全て</option>
 
-<option value="owned">所持のみ</option>
+save();
 
-<option value="notOwned">未所持のみ</option>
+display(cards);
 
-</select>
+}
 
-</section>
 
-<section class="card-list">
 
-<h2 id="pageTitle">
 
-武将一覧
+function searchCard(){
 
-</h2>
+let text=
+document.getElementById("search").value;
 
-<div id="warriorList">
 
-読み込み中...
+let result=
+cards.filter(c=>
+c.name.includes(text)
+);
 
-</div>
 
-</section>
+display(result);
 
-</main>
+}
 
-<footer>
 
-Kingdom Manager Version 0.5
 
-</footer>
+display(cards);
 
-<script src="script.js"></script>
+updateCount();
+
+
+</script>
+
 
 </body>
-
 </html>
